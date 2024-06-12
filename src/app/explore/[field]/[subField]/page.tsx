@@ -6,12 +6,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
+// import { Button } from '@/components/ui/button';
+// import { Card, CardContent, CardTitle } from '@/components/ui/card';
 // import { Link } from 'next-view-transitions';
 import { useParams } from 'next/navigation';
 import { Link } from 'next-view-transitions';
 import { useEffect, useState } from 'react';
+import FieldCard from '@/components/SubFieldCard/FieldCard';
+import { QuestionData } from '@/components/SubFieldCard/data';
 
 export default function Content() {
   const [currentField, setCurrentField] = useState<string>('');
@@ -19,28 +21,119 @@ export default function Content() {
   const params = useParams();
   useEffect(() => {
     const field = params.field?.toString().toLowerCase();
-    // const subFields = params.subField?.toString().toLowerCase();
+    const subFields = params.subField?.toString().toLowerCase();
 
     switch (field) {
       case 'programming':
         setCurrentField(params.field.toString());
-        setCurrentSubField(params.subField.toString());
+        switch (subFields) {
+          case 'oop':
+            setCurrentSubField('Object Oriented Programming');
+            break;
+
+          case 'control-structures':
+            setCurrentSubField('Controll Structure');
+            break;
+
+          case 'functions-and-methods':
+            setCurrentSubField('Functions and Methods');
+            break;
+
+          case 'intro':
+            setCurrentSubField('Introduction');
+            break;
+        }
         break;
       case 'dbms':
         setCurrentField('Database Management Systems');
-        setCurrentSubField(params.subField.toString());
+        switch (subFields) {
+          case 'core':
+            setCurrentSubField('Core Concepts');
+            break;
+
+          case 'rdbms':
+            setCurrentSubField('RDBMS');
+            break;
+
+          case 'design-and-normalization':
+            setCurrentSubField('Database Design and Normalization');
+            break;
+
+          case 'querying-and-sql':
+            setCurrentSubField('Querying and SQL');
+            break;
+          case 'transactions-and-concurrency':
+            setCurrentSubField('Transactions and Concurrency');
+            break;
+        }
         break;
       case 'os':
         setCurrentField('Operating Systems');
-        setCurrentSubField(params.subField.toString());
+        switch (subFields) {
+          case 'process-management':
+            setCurrentSubField('Process Management');
+            break;
+
+          case 'memory-management':
+            setCurrentSubField('Controll Structure');
+            break;
+
+          case 'file-systems':
+            setCurrentSubField('File Systems');
+            break;
+
+          case 'concurrency-and-synchronization':
+            setCurrentSubField('Concurrency and Synchronization');
+            break;
+        }
         break;
       case 'app':
         setCurrentField('Mobile App Development');
-        setCurrentSubField(params.subField.toString());
+        switch (subFields) {
+          case 'intro':
+            setCurrentSubField('Introduction');
+            break;
+
+          case 'native':
+            setCurrentSubField('Native App Development');
+            break;
+
+          case 'cross-platform':
+            setCurrentSubField('Cross-Platform App Development');
+            break;
+
+          case 'ui':
+            setCurrentSubField('User Interface (UI) Design');
+            break;
+
+          case 'backend':
+            setCurrentSubField('Backend');
+            break;
+        }
         break;
       case 'web':
         setCurrentField('Web Development');
-        setCurrentSubField(params.subField.toString());
+        switch (subFields) {
+          case 'basics':
+            setCurrentSubField('Basics');
+            break;
+
+          case 'javascript':
+            setCurrentSubField('JavaScript Fundamentals');
+            break;
+
+          case 'frontend':
+            setCurrentSubField('Frontend Development');
+            break;
+
+          case 'backend':
+            setCurrentSubField('Backend Development');
+            break;
+
+          case 'Database':
+            setCurrentSubField('Database Integration');
+            break;
+        }
         break;
       default:
         setCurrentField('');
@@ -53,102 +146,14 @@ export default function Content() {
         currentSubField={currentSubField}
       />
 
+      <div className="text-3xl font-bold tracking-wider capitalize mb-[1.5rem]">
+        {currentSubField}
+      </div>
+
       <div className="sm:flex-1 m-0 w-[50vw] grid gap-5">
-        <div className="bg-card hover:bg-card-hover transition-all duration-200  cursor-pointer p-[2rem] rounded-3xl">
-          <Card className="bg-transparent border-0 rounded-lg relative flex flex-row justify-between">
-            <div>
-              <h1>Que.1</h1>
-              <span className="text-background-blur absolute right-[-1.5rem] top-[-1.5rem]">
-                10 points
-              </span>
-              <CardTitle className="text-lg lg:text-2xl tracking-wide capitalize cursor-pointer ">
-                Print Hello World
-              </CardTitle>
-              <span className="text-sm text-green-500">Super-Easy</span>
-            </div>
-            <CardContent className="flex flex-row  p-0 items-center">
-              <Button className="w-auto  text-lg text-primary   hover:text-white border-2 border-background-blur bg-transparent hover:bg-green-500  hover rounded-xl">
-                Start Challenge
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="bg-card hover:bg-card-hover transition-all duration-200  cursor-pointer p-[2rem] rounded-3xl">
-          <Card className="bg-transparent border-0 rounded-lg relative flex flex-row justify-between">
-            <div>
-              <h1>Que.2</h1>
-              <span className="text-background-blur absolute right-[-1.5rem] top-[-1.5rem]">
-                10 points
-              </span>
-              <CardTitle className="text-lg lg:text-2xl tracking-wide capitalize cursor-pointer ">
-                Declare Your First Variable
-              </CardTitle>
-              <span className="text-sm text-green-500">Super-Easy</span>
-            </div>
-            <CardContent className="flex flex-row  p-0 items-center">
-              <Button className="w-auto  text-lg text-primary   hover:text-white border-2 border-background-blur bg-transparent hover:bg-green-500  hover rounded-xl">
-                Start Challenge
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="bg-card hover:bg-card-hover transition-all duration-200  cursor-pointer p-[2rem] rounded-3xl">
-          <Card className="bg-transparent border-0 rounded-lg relative flex flex-row justify-between">
-            <div>
-              <h1>Que.3</h1>
-              <span className="text-background-blur absolute right-[-1.5rem] top-[-1.5rem]">
-                10 points
-              </span>
-              <CardTitle className="text-lg lg:text-2xl tracking-wide capitalize cursor-pointer ">
-                Arrays
-              </CardTitle>
-              <span className="text-sm text-green-700">Easy</span>
-            </div>
-            <CardContent className="flex flex-row  p-0 items-center">
-              <Button className="w-auto  text-lg text-primary   hover:text-white border-2 border-background-blur bg-transparent hover:bg-green-500  hover rounded-xl">
-                Start Challenge
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="bg-card hover:bg-card-hover transition-all duration-200  cursor-pointer p-[2rem] rounded-3xl">
-          <Card className="bg-transparent border-0 rounded-lg relative flex flex-row justify-between">
-            <div>
-              <h1>Que.4</h1>
-              <span className="text-background-blur absolute right-[-1.5rem] top-[-1.5rem]">
-                10 points
-              </span>
-              <CardTitle className="text-lg lg:text-2xl tracking-wide capitalize cursor-pointer ">
-                Arrays
-              </CardTitle>
-              <span className="text-sm text-green-500">Easy</span>
-            </div>
-            <CardContent className="flex flex-row  p-0 items-center">
-              <Button className="w-auto  text-lg text-primary   hover:text-white border-2 border-background-blur bg-transparent hover:bg-green-500  hover rounded-xl">
-                Start Challenge
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="bg-card hover:bg-card-hover transition-all duration-200  cursor-pointer p-[2rem] rounded-3xl">
-          <Card className="bg-transparent border-0 rounded-lg relative flex flex-row justify-between">
-            <div>
-              <h1>Que.5</h1>
-              <span className="text-background-blur absolute right-[-1.5rem] top-[-1.5rem]">
-                10 points
-              </span>
-              <CardTitle className="text-lg lg:text-2xl tracking-wide capitalize cursor-pointer ">
-                Arrays
-              </CardTitle>
-              <span className="text-sm text-green-500">Easy</span>
-            </div>
-            <CardContent className="flex flex-row  p-0 items-center">
-              <Button className="w-auto  text-lg text-primary   hover:text-white border-2 border-background-blur bg-transparent hover:bg-green-500  hover rounded-xl">
-                Start Challenge
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+        {QuestionData.map((data) => (
+          <FieldCard key={data.id} data={data} />
+        ))}
       </div>
     </div>
   );
@@ -182,7 +187,6 @@ function Breadcrumbs({
           </Link>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-
         <BreadcrumbItem>
           <Link
             href={`/explore/${currentField.toLowerCase()}`}
