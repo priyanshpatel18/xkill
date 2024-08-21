@@ -1,42 +1,51 @@
-import { exploreFields } from '@/components/exploreCard/exploreFieldContent';
+import fs from 'fs';
 import type { MetadataRoute } from 'next';
+import path from 'path';
 
 const URL = 'https://www.xkill.tech';
-const staticRoutes = [
-  '/',
-  '/invalidsession',
-  '/sign-in',
-  '/sign-up',
-  '/privacy-policy',
-  '/tnc',
-  '/explore'
-];
+const baseDir = 'src/app';
+const dynamicDirs = ['explore'];
+const excludeDirs = ['api'];
 
-function getDynamicRoutes(): string[] {
-  const dynamicRoutes: string[] = [];
+function getRoutes(): MetadataRoute.Sitemap {
+  const fullPath = path.join(process.cwd(), baseDir);
+  const routes: MetadataRoute.Sitemap = [];
 
-  exploreFields.forEach(field => {
-    dynamicRoutes.push(`/explore/${field.redirectLink}`);
+  function processDirectory(dirPath: string, routePrefix: string) {
+    const entries = fs.readdirSync(fullPath, { withFileTypes: true });
 
-    field.subFields.forEach(subField => {
-      dynamicRoutes.push(`/explore/${subField.redirectLink}`);
+    entries.forEach(entry => {
+      if (entry.isDirectory()) {
+        const isParenthetical = entry.name.startsWith('(') && entry.name.endsWith(')');
+
+        const newRoutePrefix = isParenthetical ? routePrefix : `${routePrefix}/${entry.name}`;
+
+        if (excludeDirs.includes(entry.name)) {
+          return;
+        }
+
+        if (dynamicDirs.includes(entry.name)) {
+          processDirectory(path.join(dirPath, entry.name), newRoutePrefix);
+        } else {
+          routes.push({
+            url: `${URL}${newRoutePrefix}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 1.0,
+          });
+
+          // Recursively process subdirectories
+          processDirectory(path.join(dirPath, entry.name), newRoutePrefix);
+        }
+      }
     });
-  });
+  }
 
-  return dynamicRoutes;
+  processDirectory(fullPath, '');
+
+  return routes;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const dynamicRoutes = getDynamicRoutes();
-
-  const allRoutes = [...staticRoutes, ...dynamicRoutes];
-
-  return allRoutes.map(route => {
-    return {
-      url: `${URL}${route}`,
-      lastModified: new Date(),
-      changeFrequency: route === '/' ? 'yearly' : 'monthly',
-      priority: route === '/' ? 1 : 0.8,
-    };
-  });
+  return getRoutes();
 }
