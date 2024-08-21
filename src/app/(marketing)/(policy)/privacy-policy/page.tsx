@@ -1,5 +1,9 @@
-import { privacyPolicyContent } from '@/components/footer/privacy-policy/privacy-policy';
-import React from 'react';
+import { privacyPolicyContent } from '@/components/landing/footer/privacy-policy/privacy-policy';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+};
 
 export default function PrivacyPolicyPage() {
   return (

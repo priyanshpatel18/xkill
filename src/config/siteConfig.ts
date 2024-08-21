@@ -6,10 +6,13 @@ const DESCRIPTION =
 const BASE_URL = 'https://www.xkill.tech';
 
 const siteConfig: Metadata = {
-  title: TITLE,
+  title: {
+    default: TITLE,
+    template: `%s | ${TITLE}`,
+  },
   description: DESCRIPTION,
   icons: {
-    // icon: "/favicon.ico",
+    icon: '/favicon.ico',
   },
   applicationName: TITLE,
   creator: 'Priyansh Patel',

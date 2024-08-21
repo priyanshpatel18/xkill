@@ -4,12 +4,12 @@
 
 @layer base {
   :root {
-    --background: #f6f6f6;
-    --foreground: #1f1f1f;
+    --background: #f7f8fd;
+    --background-blur: #1f1f1f80;
+    --foreground: #010101;
 
     --primary: #1f1f1f;
     --primary-foreground: #f6f6f6;
-    --card: #ffffff;
     --card-foreground: #000000;
     --popover: #ffffff;
     --popover-foreground: #000000;
@@ -25,17 +25,20 @@
     --ring: #1f1f1f;
     --radius: 0.5rem;
 
-    --appbar: #e4e4e4;
-    --appbar-foreground: #2e2e2e;
+    --card: #e6ebff;
+    --card-hover: #c8cde1;
+    --card-button-hover: rgb(160, 165, 185);
+    --appbar: #e6ebff;
+    --appbar-foreground: #1f202a;
     --border: #1f1f1f;
   }
 
   .dark {
-    --background: #1f1f1f;
-    --foreground: #f6f6f6;
+    --background: #121418;
+    --background-blur: #f6f6f680;
+    --foreground: #f7f8fd;
     --primary: #f6f6f6;
     --primary-foreground: #1f1f1f;
-    --card: #2c2c2c;
     --card-foreground: #f6f6f6;
     --popover: #2c2c2c;
     --popover-foreground: #f6f6f6;
@@ -49,8 +52,16 @@
     --destructive-foreground: #f6f6f6;
     --input: #3c3c3c;
     --ring: #cacaca;
-    --appbar: #2e2e2e;
+
+    --appbar: #1f202a;
     --border: #e4e4e4;
+    --card: #1f202a;
+    --card-hover: #35363f;
+    --card-button-hover: #63646f;
+  }
+
+  .loader {
+    @apply w-[1.5rem] h-[1.5rem] border-t-[3.5px] border-[3.5px] border-background-blur border-t-foreground rounded-full animate-spin;
   }
 
   * {

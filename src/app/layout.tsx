@@ -6,7 +6,6 @@ import { Providers } from '@/components/Providers';
 import { ReactNode } from 'react';
 import './globals.css';
 import Footer from '@/components/footer/Footer';
-import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 
 export const metadata = siteConfig;
 
@@ -14,7 +13,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`min-h-screen ${fonts.productSans}`}>
-        <GoogleAnalytics />
         <Providers>
           <Toaster position="bottom-right" />
           <Appbar />

@@ -26,7 +26,7 @@ export default function ThemeToggler({ currentTheme, setCurrentTheme }: Props) {
       <Image
         src={currentTheme === 'light' ? themeLight : themeDark}
         alt="theme"
-        className="w-[1.4rem] h-[1.4rem]"
+        className="w-[1.4rem] h-[1.4rem] select-none"
         width={22}
         height={22}
       />

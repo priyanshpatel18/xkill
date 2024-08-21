@@ -1,5 +1,10 @@
-import { tncContent } from '@/components/footer/tnc/tncContent';
+import { tncContent } from '@/components/landing/footer/tnc/tncContent';
 import React from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms and Conditions',
+};
 
 export default function TermsAndConditionsPage() {
   return (

@@ -7,10 +7,8 @@ import { AppStore } from '@/store/appStore';
 import { signIn } from 'next-auth/react';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
-// import { useRef } from 'react';
-import { toast } from 'sonner';
+import { useState } from 'react';
+import Logo from './Logo';
 import { Button } from './ui/button';
 
 interface AuthProps {
@@ -27,79 +25,66 @@ export default function Auth({
   redirectText,
 }: AuthProps) {
   const store = AppStore();
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
+  const [loadingGithub, setLoadingGithub] = useState(false);
 
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const status = searchParams.get('status');
-  // Hot Reload while development
-  // const prevStatusRef = useRef<string | null>(null);
-
-  // // Comment before pushing
-  // useEffect(() => {
-  //   if (status && status !== prevStatusRef.current) {
-  //     if (status === '200') {
-  //       router.push('/');
-  //       toast.success('Welcome to xkill!');
-  //     } else {
-  //       toast.error('Something went wrong, Try Again!');
-  //     }
-  //     prevStatusRef.current = status;
-  //   }
-  // }, [status]);
-
-  // Comment out before pushing
-  useEffect(() => {
-    if (status) {
-      if (status === '200') {
-        toast.success('Welcome to xkill!');
-        router.push('/');
-      } else {
-        toast.error('Something went wrong, Try Again!');
-      }
+  const handleAuth = async (provider: string) => {
+    if (provider === 'google') {
+      setLoadingGoogle(true);
+    } else if (provider === 'github') {
+      setLoadingGithub(true);
     }
-  }, [status]);
+    store.setLoading(true);
+    await signIn(provider);
+  };
+
+  const getGithubImage = () => {
+    return store.theme === 'light' ? GithubLight : GithubDark;
+  };
 
   return (
     <div className="h-screen w-full flex flex-col justify-center items-center">
-      <div className="border-2 border-border rounded-2xl px-8 py-12">
+      <div className="rounded-2xl px-8 py-12 bg-card">
+        <div className="xkill">
+          <Logo isRedirect={true} size={2}></Logo>
+          <div className="pb-5"></div>
+        </div>
         <div className="flex flex-col gap-[1rem]">
           <div className="flex flex-col gap-[0rem]">
-            <span className="font-extrabold text-2xl capitalize">{title}</span>
+            <span className="font-extrabold text-2xl">{title}</span>
             <span>to continue to xkill</span>
           </div>
           <div className="flex flex-col gap-[0.5rem]">
             <Button
-              className="text-primary bg-transparent flex gap-[1rem] border-2 border-border py-6"
-              onClick={() => {
-                signIn('google');
-              }}
+              className="text-primary bg-background flex gap-[1rem] border-[1px] border-border py-6"
+              onClick={() => handleAuth('google')}
+              disabled={loadingGoogle || loadingGithub}
             >
-              <Image
-                src={Google}
-                alt="google"
-                className="w-[1.5rem] h-[1.5rem]"
-              />
+              {loadingGoogle ? (
+                <div className="loader"></div>
+              ) : (
+                <Image
+                  src={Google}
+                  alt="google"
+                  className="w-[1.5rem] h-[1.5rem]"
+                />
+              )}
               <span className="mr-[6rem] md:mr-[10rem] lg:text-[1rem]">
                 Continue with Google
               </span>
             </Button>
             <Button
-              className="text-primary bg-transparent flex gap-[1rem] border-2 border-border py-6"
-              onClick={() => {
-                signIn('github');
-              }}
+              className="text-primary bg-background flex gap-[1rem] border-[1px] border-border py-6"
+              onClick={() => handleAuth('github')}
+              disabled={loadingGoogle || loadingGithub}
             >
-              {store.theme === 'light' ? (
-                <Image
-                  src={GithubLight}
-                  alt="github"
-                  className="w-[1.5rem] h-[1.5rem]"
-                />
+              {loadingGithub ? (
+                <div className="loader"></div>
               ) : (
                 <Image
-                  src={GithubDark}
+                  src={getGithubImage()}
                   alt="github"
-                  className="w-[1.5rem] h-[1.5rem]"
+                  className="w-[1.5rem] h-[1.5rem] select-none"
                 />
               )}
               <span className="mr-[6rem] md:mr-[10rem] lg:text-[1rem]">

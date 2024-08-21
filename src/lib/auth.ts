@@ -92,7 +92,7 @@ const authOptions: AuthOptions = {
     },
     redirect: async ({ url, baseUrl }) => {
       if (url.includes('/sign-in') || url.includes('/sign-up')) {
-        return `${baseUrl}/sign-in?status=200`;
+        return `${baseUrl}/?status=200`;
       }
       return baseUrl;
     },
