@@ -2,7 +2,7 @@
 
 import Script from 'next/script';
 
-const GA_TRACKING_ID = 'G-TB78R7K2VR';
+const GA_TRACKING_ID = 'G-G5DJDE0R7Q';
 
 export const GoogleAnalytics = () => {
   return (
@@ -25,7 +25,7 @@ export const GoogleAnalytics = () => {
           gtag('js', new Date());
 
           //@ts-ignore
-          gtag('config', 'G-TB78R7K2VR');
+          gtag('config', 'G-G5DJDE0R7Q');
         }}
       />
     </>
