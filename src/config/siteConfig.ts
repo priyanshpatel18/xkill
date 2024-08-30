@@ -30,6 +30,21 @@ const siteConfig: Metadata = {
     'career advice',
   ],
   metadataBase: new URL(BASE_URL),
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: BASE_URL,
+    images: [
+      {
+        url: 'https://www.xkill.tech/opengraph-image.png',
+        width: 1200,
+        height: 630,
+      },
+    ],
+    siteName: TITLE,
+    locale: 'en-US',
+    type: 'website',
+  }
 };
 
 export default siteConfig;
