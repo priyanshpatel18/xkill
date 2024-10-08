@@ -2,7 +2,7 @@ import fs from 'fs';
 import type { MetadataRoute } from 'next';
 import path from 'path';
 
-const URL = 'https://www.thechamp.fit';
+const URL = 'https://www.xkill.tech';
 const baseDir = 'src/app';
 const dynamicDirs = ['explore'];
 const excludeDirs = ['api'];
